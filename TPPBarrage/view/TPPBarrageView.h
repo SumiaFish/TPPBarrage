@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, TPPBarrageViewType) {
 @property (assign, nonatomic) CGFloat speed;
 /** default: NO */
 @property (assign, nonatomic) BOOL isRepeat;
+/** default: NO */
+@property (assign, nonatomic) BOOL canDrag;
 
 - (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows type:(TPPBarrageViewType)type;
 - (UIFont *)font;

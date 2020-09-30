@@ -38,6 +38,7 @@
     self.barrageView.data = self.data;
     self.barrageView.speed = 1;
     self.barrageView.isRepeat = YES;
+    self.barrageView.canDrag = YES;
     [self.barrageView play];
 }
 
@@ -45,7 +46,7 @@
     NSMutableArray<TPPBarrageModel *> *data = NSMutableArray.array;
     
     UIFont *font = self.barrageFont;
-    for (NSInteger i = 0; i < 10; i++) {
+    for (NSInteger i = 0; i < 1000; i++) {
         TPPBarrageModel *model = [[TPPBarrageModel alloc] init];
         model.text = [self.class random:[self.class getRandomNumber:1 to:50]];
         model.avatar = @"https://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&hd=undefined&latest=undefined&copyright=undefined&cs=3922290090,3177876335&os=814333916,154083731&simid=39490595,826993982&pn=8&rn=1&di=95040&ln=1566&fr=&fmq=1601371306192_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fa3.att.hudong.com%2F55%2F22%2F20300000929429130630222900050.jpg&rpstart=0&rpnum=0&adpicid=0&force=undefined";

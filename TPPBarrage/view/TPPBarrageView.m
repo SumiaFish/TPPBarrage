@@ -29,7 +29,8 @@
 ZLCollectionViewBaseFlowLayoutDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (assign, nonatomic) NSInteger count;
+@property (assign, nonatomic) CGPoint panPoint;
+@property (strong, nonatomic) UIPanGestureRecognizer *pan;
 
 @end
 
@@ -126,11 +127,10 @@ ZLCollectionViewBaseFlowLayoutDelegate>
             make.edges.mas_equalTo(self).insets(UIEdgeInsetsZero);
         }];
         self.collectionView.backgroundColor = UIColor.lightGrayColor;
-//        self.collectionView.userInteractionEnabled = NO;
+        self.collectionView.userInteractionEnabled = NO;
         
         //
-//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
-//        [self addGestureRecognizer:pan];
+        self.canDrag = NO;
     }
     
     return self;
@@ -146,7 +146,6 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 - (void)setData:(NSArray<TPPBarrageModel *> *)data {
     [super setData:data];
-    self.count = self.data.count * 10;
     
     [self.collectionView reloadData];
 }
@@ -165,6 +164,13 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 - (void)pause {
     self.link.paused = YES;
+}
+
+- (void)setCanDrag:(BOOL)canDrag {
+    [super setCanDrag:canDrag];
+    
+    //
+    self.pan.enabled = canDrag;
 }
 
 - (void)linkAction:(CADisplayLink *)sender {
@@ -193,7 +199,7 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.count;
+    return self.data.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -229,10 +235,18 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 #pragma mark -
 
 - (void)panAction:(UIPanGestureRecognizer *)sender {
+    CGPoint point = [sender locationInView:sender.view];
     
-}
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self pause];
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x + (-(point.x - self.panPoint.x)), self.collectionView.contentOffset.y) animated:NO];
+    } else {
+        [self play];
+    }
 
-#pragma mark -
+    self.panPoint = point;
+}
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
@@ -256,6 +270,16 @@ ZLCollectionViewBaseFlowLayoutDelegate>
         _collectionView = view;
     }
     return _collectionView;
+}
+
+- (UIPanGestureRecognizer *)pan {
+    if (!_pan) {
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
+        [self addGestureRecognizer:pan];
+        
+        _pan = pan;
+    }
+    return _pan;
 }
 
 - (CGFloat)minX {
