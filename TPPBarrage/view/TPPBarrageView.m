@@ -124,7 +124,6 @@ ZLCollectionViewBaseFlowLayoutDelegate>
         [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(self).insets(UIEdgeInsetsZero);
         }];
-        self.collectionView.backgroundColor = UIColor.lightGrayColor;
         self.collectionView.userInteractionEnabled = NO;
         
         //

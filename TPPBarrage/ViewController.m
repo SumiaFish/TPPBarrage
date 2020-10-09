@@ -61,6 +61,7 @@
 - (TPPBarrageView *)barrageView {
     if (!_barrageView) {
         TPPBarrageView *view = [[TPPBarrageView alloc] initWithFont:self.barrageFont rows:3];
+        view.backgroundColor = UIColor.lightGrayColor;
         
 //        __weak typeof(self) weakself = self;
         view.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
