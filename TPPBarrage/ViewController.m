@@ -60,7 +60,12 @@
 
 - (TPPBarrageView *)barrageView {
     if (!_barrageView) {
-        TPPBarrageView *view = [[TPPBarrageView alloc] initWithFont:self.barrageFont rows:3 type:(TPPBarrageViewType_CollectionView)];
+        TPPBarrageView *view = [[TPPBarrageView alloc] initWithFont:self.barrageFont rows:3];
+        
+//        __weak typeof(self) weakself = self;
+        view.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
+            NSLog(@"click item: %@", model.text);
+        };
         
         _barrageView = view;
     }

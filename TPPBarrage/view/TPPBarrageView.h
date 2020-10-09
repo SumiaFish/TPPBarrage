@@ -12,11 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, TPPBarrageViewType) {
-    TPPBarrageViewType_CollectionView,
-    TPPBarrageViewType_TagView,
-};
-
 @interface TPPBarrageView : UIView
 
 @property (weak, nonatomic) NSArray<TPPBarrageModel *> *data;
@@ -26,12 +21,13 @@ typedef NS_ENUM(NSInteger, TPPBarrageViewType) {
 @property (assign, nonatomic) BOOL isRepeat;
 /** default: NO */
 @property (assign, nonatomic) BOOL canDrag;
+/** on click item */
+@property (copy, nonatomic) void (^ onClickItemBlock) (TPPBarrageView *view, TPPBarrageModel *model);
 
-- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows type:(TPPBarrageViewType)type;
+- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows;
 - (UIFont *)font;
 /** default: 1 */
 - (NSInteger)rows;
-- (TPPBarrageViewType)type;
 
 - (void)play;
 - (BOOL)isPause;
