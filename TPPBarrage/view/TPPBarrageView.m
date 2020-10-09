@@ -243,10 +243,13 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 - (void)tapAction:(UITapGestureRecognizer *)sender {
     CGPoint point = [sender locationInView:self.collectionView];
+    if (!self.onClickItemBlock) {
+        return;
+    }
+    
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
     if (indexPath &&
-        self.data.count > indexPath.item &&
-        self.onClickItemBlock) {
+        self.data.count > indexPath.item) {
         self.onClickItemBlock(self, self.data[indexPath.item]);
     }
 }
