@@ -191,20 +191,18 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.data.count;
+    return self.isSeamless ? self.maxRows*self.data.count : self.data.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TPPBarrageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    NSInteger index = indexPath.item % self.data.count;
-    [cell setModel:self.data[index] font:self.font];
+    [cell setModel:[self itemWithIndexPath:indexPath] font:self.font];
     
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger index = indexPath.item % self.data.count;
-    CGFloat w = [TPPBarrageCell widthWithTextWidth:self.data[index].textWidth] + self.hSpace;
+    CGFloat w = [TPPBarrageCell widthWithTextWidth:[self itemWithIndexPath:indexPath].textWidth] + self.hSpace;
     CGFloat h = collectionView.bounds.size.height / self.rows;
     
     return CGSizeMake(w, h);
@@ -247,13 +245,17 @@ ZLCollectionViewBaseFlowLayoutDelegate>
     
     CGPoint point = [sender locationInView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
-    if (indexPath &&
-        self.data.count > indexPath.item) {
-        self.onClickItemBlock(self, self.data[indexPath.item]);
+    if (indexPath) {
+        self.onClickItemBlock(self, [self itemWithIndexPath:indexPath]);
     }
 }
 
 #pragma mark -
+
+- (TPPBarrageModel *)itemWithIndexPath:(NSIndexPath *)indexPath {
+    NSInteger index = indexPath.item % self.data.count;
+    return self.data.count > index ? self.data[index] : nil;
+}
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
@@ -300,6 +302,10 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 - (CGFloat)minX {
     return 0;
+}
+
+- (NSInteger)maxRows {
+    return 10;
 }
 
 @end
