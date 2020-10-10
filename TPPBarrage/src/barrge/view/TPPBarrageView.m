@@ -262,7 +262,7 @@ static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.isSeamless ? self.maxRows*self.data.count : self.data.count;
+    return self.isSeamless ? MIN(1000, self.data.count*self.data.count) : self.data.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

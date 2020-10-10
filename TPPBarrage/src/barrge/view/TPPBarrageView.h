@@ -28,7 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL isRepeat;
 /** default: NO */
 @property (assign, nonatomic) BOOL canDrag;
-/** default: NO (是否实行两次数据无缝对接)*/
+/** default: NO (是否实行两次数据无缝对接);
+    YES: cell count: MIN(1000, self.data.count*self.data.count);
+    NO: cell count: self.data.count; */
 @property (assign, nonatomic) BOOL isSeamless;
 /** on click item */
 @property (copy, nonatomic) void (^ onClickItemBlock) (TPPBarrageView *view, TPPBarrageModel *model);
