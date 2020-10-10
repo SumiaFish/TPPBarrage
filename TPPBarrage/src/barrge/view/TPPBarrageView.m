@@ -140,26 +140,18 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 @implementation TPPBarrageView (CollectionViewStyle)
 
-static void* TPPBarrageView_OnRenderCustomCellBlock_Key = "TPPBarrageView_OnRenderCustomCellBlock_Key";
- 
-- (void)setOnRenderCustomCellBlock:(UICollectionViewCell<TPPBarrageContentViewProtocol> * _Nonnull (^)(TPPBarrageView * _Nonnull, NSIndexPath * _Nonnull, TPPBarrageModel * _Nonnull))onRenderCustomCellBlock {
-    objc_setAssociatedObject(self, &TPPBarrageView_OnRenderCustomCellBlock_Key, onRenderCustomCellBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
+static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
 
-- (UICollectionViewCell<TPPBarrageContentViewProtocol> * _Nonnull (^)(TPPBarrageView * _Nonnull, NSIndexPath * _Nonnull, TPPBarrageModel * _Nonnull))onRenderCustomCellBlock {
-    return objc_getAssociatedObject(self, &TPPBarrageView_OnRenderCustomCellBlock_Key);
-}
-
-- (void)registCell:(Class)cls {
-    if ([cls isKindOfClass:UICollectionViewCell.class] &&
-        [cls conformsToProtocol:@protocol(TPPBarrageContentViewProtocol)]) {
-        [self._collectionView registerClass:cls forCellWithReuseIdentifier:NSStringFromClass(cls)];
+- (void)setCellCls:(Class)cellCls {
+    objc_setAssociatedObject(self, &TPPBarrageView_CellCls_Key, cellCls, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    if (cellCls) {
+        [self._collectionView registerClass:cellCls forCellWithReuseIdentifier:NSStringFromClass(cellCls)];
     }
 }
 
-- (UICollectionViewCell<TPPBarrageContentViewProtocol> *)dequeueReusableCell:(Class)cls indexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell<TPPBarrageContentViewProtocol> *cell = [self._collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(cls) forIndexPath:indexPath];
-    return cell;
+- (Class)cellCls {
+    return objc_getAssociatedObject(self, &TPPBarrageView_CellCls_Key);
 }
 
 - (UICollectionView *)_collectionView {
@@ -270,7 +262,7 @@ static void* TPPBarrageView_OnRenderCustomCellBlock_Key = "TPPBarrageView_OnRend
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell<TPPBarrageContentViewProtocol> *cell = self.onRenderCustomCellBlock ? self.onRenderCustomCellBlock(self, indexPath, [self itemWithIndexPath:indexPath]) : [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    UICollectionViewCell<TPPBarrageContentViewProtocol> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellCls ? NSStringFromClass(self.cellCls) : @"cell" forIndexPath:indexPath];
     [cell setModel:[self itemWithIndexPath:indexPath] font:self.font];
     
     return cell;

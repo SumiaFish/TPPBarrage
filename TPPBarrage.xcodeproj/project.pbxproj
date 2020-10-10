@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0446659A2531918F00CFD931 /* CustomBarrgeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044665992531918F00CFD931 /* CustomBarrgeCell.m */; };
 		044D051C25231B6B00A9F02F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D051B25231B6B00A9F02F /* AppDelegate.m */; };
 		044D052225231B6B00A9F02F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D052125231B6B00A9F02F /* ViewController.m */; };
 		044D052525231B6B00A9F02F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D052325231B6B00A9F02F /* Main.storyboard */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044665982531918F00CFD931 /* CustomBarrgeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomBarrgeCell.h; sourceTree = "<group>"; };
+		044665992531918F00CFD931 /* CustomBarrgeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomBarrgeCell.m; sourceTree = "<group>"; };
 		044D051725231B6B00A9F02F /* TPPBarrage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPPBarrage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		044D051A25231B6B00A9F02F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		044D051B25231B6B00A9F02F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				044D051B25231B6B00A9F02F /* AppDelegate.m */,
 				044D052025231B6B00A9F02F /* ViewController.h */,
 				044D052125231B6B00A9F02F /* ViewController.m */,
+				044665982531918F00CFD931 /* CustomBarrgeCell.h */,
+				044665992531918F00CFD931 /* CustomBarrgeCell.m */,
 				044D052325231B6B00A9F02F /* Main.storyboard */,
 				044D052625231B6D00A9F02F /* Assets.xcassets */,
 				044D052825231B6D00A9F02F /* LaunchScreen.storyboard */,
@@ -460,6 +465,7 @@
 				044D052225231B6B00A9F02F /* ViewController.m in Sources */,
 				044D055925231C3500A9F02F /* TPPBarrageModel.m in Sources */,
 				044D051C25231B6B00A9F02F /* AppDelegate.m in Sources */,
+				0446659A2531918F00CFD931 /* CustomBarrgeCell.m in Sources */,
 				044D055625231C2400A9F02F /* TPPBarrageCell.m in Sources */,
 				044D055325231BEE00A9F02F /* TPPBarrageView.m in Sources */,
 				044D052D25231B6D00A9F02F /* main.m in Sources */,

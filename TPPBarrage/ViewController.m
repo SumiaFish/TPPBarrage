@@ -10,6 +10,8 @@
 
 #import "TPPBarrageView.h"
 
+#import "CustomBarrgeCell.h"
+
 @interface ViewController ()
 
 @property (copy, nonatomic) NSArray<TPPBarrageModel *> *data;
@@ -65,6 +67,8 @@
         view.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
             TPPBarrageViewLog(@"click item: %@", model.text);
         };
+        
+        view.cellCls = CustomBarrgeCell.class;
         
         _barrageView = view;
     }

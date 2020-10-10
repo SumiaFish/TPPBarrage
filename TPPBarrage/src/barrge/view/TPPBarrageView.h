@@ -46,11 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrageView (CollectionViewStyle)
 
-/** on render custom cell */
-@property (copy, nonatomic, nullable) UICollectionViewCell<TPPBarrageContentViewProtocol>* (^ onRenderCustomCellBlock) (TPPBarrageView *view, NSIndexPath *indexPath, TPPBarrageModel *model);
-
-- (void)registCell:(Class)cls;
-- (UICollectionViewCell<TPPBarrageContentViewProtocol>* _Nullable)dequeueReusableCell:(Class)cls indexPath:(NSIndexPath *)indexPath;
+@property (strong, nonatomic) Class cellCls;
 
 @end
 
