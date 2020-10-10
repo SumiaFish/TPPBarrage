@@ -105,8 +105,8 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 }
 
 - (void)removeLink {
-    [self pause];
-    [self.link removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+    self.link.paused = YES;
+    [self.link invalidate];
     self.link = nil;
 }
 

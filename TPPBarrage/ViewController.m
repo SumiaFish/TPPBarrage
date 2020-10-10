@@ -27,7 +27,7 @@
     
     //
     [self.view addSubview:self.barrageView];
-    self.barrageView.frame = CGRectMake(0, 100, self.view.bounds.size.width, 300);
+    self.barrageView.frame = CGRectMake(0, 100, self.view.bounds.size.width, 100);
 
     //
     [self loadData];
