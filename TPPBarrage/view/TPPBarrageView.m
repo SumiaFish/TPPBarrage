@@ -37,6 +37,7 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 @property (assign, nonatomic) CGPoint panPoint;
 @property (strong, nonatomic) UIPanGestureRecognizer *pan;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
+@property (strong, nonatomic) NSValue *offsetObj;
 
 @end
 
@@ -50,6 +51,9 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 - (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows type:(TPPBarrageViewType)type {
     if (type == TPPBarrageViewType_CollectionView) {
         return [[TPPBarrageCollectionView alloc] initWithFont:font rows:rows type:type];
+    }
+    else if (type == TPPBarrageViewType_TagView) {
+        
     }
     
     return nil;
@@ -108,6 +112,15 @@ ZLCollectionViewBaseFlowLayoutDelegate>
     return 16;
 }
 
+- (TPPBarrageModel *)itemWithIndexPath:(NSIndexPath *)indexPath {
+    NSInteger index = indexPath.item % self.data.count;
+    return [self itemWithIndex:index];
+}
+
+- (TPPBarrageModel *)itemWithIndex:(NSInteger)index {
+    return self.data.count > index ? self.data[index] : nil;
+}
+
 @end
 
 /** CollectionView style */
@@ -154,6 +167,8 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 }
 
 - (void)pause {
+    self.offsetObj = nil;
+    
     self.link.paused = YES;
 }
 
@@ -169,10 +184,18 @@ ZLCollectionViewBaseFlowLayoutDelegate>
         return;
     }
     
+    if (sender.isPaused) {
+        return;
+    }
+    
+    if (!self.offsetObj) {
+        self.offsetObj = [NSValue valueWithCGPoint:self.collectionView.contentOffset];
+    }
+    
     CGSize contentSize = self.collectionView.contentSize;
-    CGPoint offset1 = self.collectionView.contentOffset;
+    CGPoint offset1 = self.offsetObj.CGPointValue;
     CGFloat minX = self.minX;
-    CGFloat x = offset1.x + self.speed;
+    CGFloat x = offset1.x + self.speed/self.link.preferredFramesPerSecond;
     CGFloat y = offset1.y;
     if (x < minX) {
         x = minX;
@@ -182,10 +205,8 @@ ZLCollectionViewBaseFlowLayoutDelegate>
     }
     CGPoint offset = CGPointMake(x, y);
 
-    [UIView animateWithDuration:1.0/60 animations:^{
-        [self.collectionView setContentOffset:offset animated:NO];
-    }];
-    
+    self.offsetObj = [NSValue valueWithCGPoint:offset];
+    [self.collectionView setContentOffset:offset animated:NO];
 }
 
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate
@@ -252,11 +273,6 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 
 #pragma mark -
 
-- (TPPBarrageModel *)itemWithIndexPath:(NSIndexPath *)indexPath {
-    NSInteger index = indexPath.item % self.data.count;
-    return self.data.count > index ? self.data[index] : nil;
-}
-
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         ZLCollectionViewHorzontalLayout* layout = [[ZLCollectionViewHorzontalLayout alloc]init];
@@ -309,4 +325,3 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 }
 
 @end
-

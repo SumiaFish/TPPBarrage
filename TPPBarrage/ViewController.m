@@ -36,10 +36,8 @@
     //
     [self loadData];
     self.barrageView.data = self.data;
-    self.barrageView.speed = 1;
+    self.barrageView.speed = 50;
     self.barrageView.isRepeat = YES;
-    self.barrageView.canDrag = YES;
-//    self.barrageView.isSeamless = YES;
     [self.barrageView play];
 }
 
