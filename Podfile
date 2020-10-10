@@ -10,10 +10,6 @@ target 'TPPBarrage' do
   pod 'ZLCollectionViewFlowLayout'
   
   pod 'Masonry'
-
-  pod 'SDWebImage'
-  
-  pod 'YYModel'
   
   target 'TPPBarrageTests' do
     inherit! :search_paths

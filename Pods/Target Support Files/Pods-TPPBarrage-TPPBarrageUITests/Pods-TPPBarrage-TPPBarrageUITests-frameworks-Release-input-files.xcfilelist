@@ -1,5 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-TPPBarrage-TPPBarrageUITests/Pods-TPPBarrage-TPPBarrageUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
-${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
-${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework
 ${BUILT_PRODUCTS_DIR}/ZLCollectionViewFlowLayout/ZLCollectionViewFlowLayout.framework

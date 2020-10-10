@@ -6,8 +6,6 @@
 //  Copyright © 2020 Mac. All rights reserved.
 //
 
-#import <Masonry/Masonry.h>
-
 #import "ViewController.h"
 
 #import "TPPBarrageView.h"
@@ -27,11 +25,7 @@
     
     //
     [self.view addSubview:self.barrageView];
-    [self.barrageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(100);
-        make.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(100);
-    }];
+    self.barrageView.frame = CGRectMake(0, 100, self.view.bounds.size.width, 100);
 
     //
     [self loadData];
@@ -57,6 +51,11 @@
     self.data = data;
 }
 
+- (IBAction)buttonAction:(id)sender {
+    [self.barrageView removeFromSuperview];
+    self.barrageView = nil;
+}
+
 - (TPPBarrageView *)barrageView {
     if (!_barrageView) {
         TPPBarrageView *view = [[TPPBarrageView alloc] initWithFont:self.barrageFont rows:3];
@@ -64,7 +63,7 @@
         
 //        __weak typeof(self) weakself = self;
         view.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
-            NSLog(@"click item: %@", model.text);
+            TPPBarrageViewLog(@"click item: %@", model.text);
         };
         
         _barrageView = view;

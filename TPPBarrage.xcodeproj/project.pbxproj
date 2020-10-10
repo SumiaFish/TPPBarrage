@@ -102,6 +102,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044665952531854700CFD931 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				044665962531855500CFD931 /* barrge */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		044665962531855500CFD931 /* barrge */ = {
+			isa = PBXGroup;
+			children = (
+				044D055025231BCF00A9F02F /* model */,
+				044D054F25231BCC00A9F02F /* view */,
+			);
+			path = barrge;
+			sourceTree = "<group>";
+		};
 		044D050E25231B6B00A9F02F = {
 			isa = PBXGroup;
 			children = (
@@ -127,8 +144,7 @@
 		044D051925231B6B00A9F02F /* TPPBarrage */ = {
 			isa = PBXGroup;
 			children = (
-				044D055025231BCF00A9F02F /* model */,
-				044D054F25231BCC00A9F02F /* view */,
+				044665952531854700CFD931 /* src */,
 				044D051A25231B6B00A9F02F /* AppDelegate.h */,
 				044D051B25231B6B00A9F02F /* AppDelegate.m */,
 				044D052025231B6B00A9F02F /* ViewController.h */,
