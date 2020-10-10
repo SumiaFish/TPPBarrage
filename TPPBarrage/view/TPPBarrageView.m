@@ -99,7 +99,7 @@ ZLCollectionViewBaseFlowLayoutDelegate>
     if (!_link) {
         CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(linkAction:)];
         [link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-        link.preferredFramesPerSecond = 60;
+        link.preferredFramesPerSecond = 100;
         link.paused = YES;
         
         _link = link;
