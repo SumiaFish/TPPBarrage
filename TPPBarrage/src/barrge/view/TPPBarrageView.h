@@ -46,7 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrageView (CollectionViewStyle)
 
-@property (strong, nonatomic) Class cellCls;
+- (void)registCell:(Class)cls;
+- (Class)cellCls;
 
 @end
 

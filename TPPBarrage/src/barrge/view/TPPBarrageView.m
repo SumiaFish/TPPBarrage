@@ -154,6 +154,10 @@ static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
     return objc_getAssociatedObject(self, &TPPBarrageView_CellCls_Key);
 }
 
+- (void)registCell:(Class)cls {
+    self.cellCls = cls;
+}
+
 - (UICollectionView *)_collectionView {
     if (![self isKindOfClass:TPPBarrageCollectionView.class]) {
         return nil;
