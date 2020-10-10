@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrageView (CollectionViewStyle)
 
+/** cell class: kind of UICollectionView<TPPBarrageContentViewProtocol> */
 - (void)registCell:(Class)cls;
 - (Class)cellCls;
 
