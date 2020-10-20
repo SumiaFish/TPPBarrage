@@ -72,7 +72,7 @@
     self.avatarView.image = [UIImage imageNamed:@"icon_my_press"];
     self.avatarView.contentMode = UIViewContentModeScaleAspectFill;
 //    [self.avatarView sd_setImageWithURL:[NSURL URLWithString:model.avatar]];
-    self.lab.text = model.text;
+    self.lab.attributedText = model.attText;
 }
 
 - (UIFont *)font {

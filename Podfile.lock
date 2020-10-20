@@ -1,20 +1,26 @@
 PODS:
   - Masonry (1.1.0)
+  - SDWebImage (4.2.3):
+    - SDWebImage/Core (= 4.2.3)
+  - SDWebImage/Core (4.2.3)
   - ZLCollectionViewFlowLayout (1.4.3)
 
 DEPENDENCIES:
   - Masonry
+  - SDWebImage (~> 4.2.3)
   - ZLCollectionViewFlowLayout
 
 SPEC REPOS:
   trunk:
     - Masonry
+    - SDWebImage
     - ZLCollectionViewFlowLayout
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   ZLCollectionViewFlowLayout: c3fce0c31adc326353c9de7d79d29d109dcad31c
 
-PODFILE CHECKSUM: baecf547542b76f74313f12376de7058e48b0a05
+PODFILE CHECKSUM: 13840d142e20a52838850a6ff299166826909f92
 
 COCOAPODS: 1.10.0.beta.2

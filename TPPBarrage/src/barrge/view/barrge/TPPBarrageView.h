@@ -8,35 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TPPBarrgeHeader.h"
+
 #import "TPPBarrageModel.h"
 #import "TPPBarrageCell.h"
-
-#ifdef DEBUG
-#define TPPBarrageViewLog(format, ...) NSLog(format, ## __VA_ARGS__)
-#else
-#define TPPBarrageViewLog(format, ...)
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrageView : UIView
 
-@property (weak, nonatomic) NSArray<TPPBarrageModel *> *data;
-/** default: 0 point / s */
+@property (copy, nonatomic) NSArray<TPPBarrageModel *> *data;
+/** 弹幕速度，defualt: 0 point/s， 建议50 */
 @property (assign, nonatomic) CGFloat speed;
-/** default: NO */
+/** 是否重复播放， default: NO */
 @property (assign, nonatomic) BOOL isRepeat;
-/** default: NO */
+/** 是否能拖动， default: NO */
 @property (assign, nonatomic) BOOL canDrag;
-/** default: NO (是否实行两次数据无缝对接);
-    YES: cell count: MIN(1000, self.data.count*self.data.count);
-    NO: cell count: self.data.count; */
-@property (assign, nonatomic) BOOL isSeamless;
-/** on click item */
+/** 弹幕点击事件， on click item */
 @property (copy, nonatomic) void (^ onClickItemBlock) (TPPBarrageView *view, TPPBarrageModel *model);
 
-- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows;
-- (UIFont *)font;
+/** font: 弹幕字体大小,
+ rows: 最大行数 */
+- (instancetype)initWithRows:(NSInteger)rows;
 /** default: 1 */
 - (NSInteger)rows;
 
@@ -48,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrageView (CollectionViewStyle)
 
-/** cell class: kind of UICollectionView<TPPBarrageContentViewProtocol> */
+/** 自定义cell的注册接口， cell class: kind of UICollectionView<TPPBarrageContentViewProtocol> */
 - (void)registCell:(Class)cls;
 - (Class)cellCls;
 

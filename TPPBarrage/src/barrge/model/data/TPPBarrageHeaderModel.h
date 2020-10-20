@@ -17,12 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSInteger onlineTotalCount;
 @property (strong, nonatomic) NSAttributedString *onlineTotalAttText;
 
-
-
-
-@property (strong, nonatomic) UIFont *font;
-- (CGFloat)textWidth;
-
 @end
 
 NS_ASSUME_NONNULL_END

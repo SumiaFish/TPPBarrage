@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TPPBarrageView.h"
+#import "TPPBarrgeHeaderView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TPPBarrgeContainerView : UIView
+
+- (instancetype)initWithRows:(NSInteger)rows;
+
+- (TPPBarrgeHeaderView *)headerView;
+- (TPPBarrageView *)barrageView;
+- (UIView *)bgView;
 
 @end
 

@@ -12,11 +12,11 @@
 
 #import "CustomBarrgeCell.h"
 
+#import "TPPBarrgeContainerView.h"
+
 @interface ViewController ()
 
-@property (copy, nonatomic) NSArray<TPPBarrageModel *> *data;
-
-@property (strong, nonatomic) TPPBarrageView *barrageView;
+@property (strong, nonatomic) TPPBarrgeContainerView *barrageContainerView;
 
 @end
 
@@ -24,62 +24,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //
-    [self.view addSubview:self.barrageView];
-    self.barrageView.frame = CGRectMake(0, 100, self.view.bounds.size.width, 100);
 
+    [self.view addSubview:self.barrageContainerView];
+    [self.barrageContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(200);
+        make.left.mas_equalTo(14);
+        make.right.mas_equalTo(-14);
+        make.height.mas_equalTo(75);
+    }];
+   
     //
-    [self loadData];
-    self.barrageView.data = self.data;
-    self.barrageView.speed = 5000;
-    self.barrageView.isRepeat = YES;
-    self.barrageView.isSeamless = YES;
-    [self.barrageView play];
+    self.barrageContainerView.headerView.model = [self loadHeaderData];
+    self.barrageContainerView.barrageView.data = [self loadBarrages];
+//    [self.barrageContainerView.barrageView registCell:CustomBarrgeCell.class];
+    [self.barrageContainerView.barrageView play];
 }
 
-- (void)loadData {
+- (NSArray<TPPBarrageModel *> *)loadBarrages {
     NSMutableArray<TPPBarrageModel *> *data = NSMutableArray.array;
     
-    UIFont *font = self.barrageFont;
+    UIFont *font = [UIFont systemFontOfSize:11];
     for (NSInteger i = 0; i < 1000; i++) {
         TPPBarrageModel *model = [[TPPBarrageModel alloc] init];
-        model.text = [self.class random:[self.class getRandomNumber:1 to:50]];
+        model.attText = ({
+            NSString *t1 = [self.class random:[self.class getRandomNumber:1 to:50]];
+            NSArray<UIColor *> *colors = @[
+                UIColor.redColor,
+                UIColor.orangeColor,
+                UIColor.purpleColor,
+                UIColor.blueColor,
+                UIColor.brownColor,
+            ];
+            UIColor *color = colors[i % colors.count];
+            NSMutableAttributedString *res = [[NSMutableAttributedString alloc] initWithString:t1];
+            [res addAttributes:@{NSForegroundColorAttributeName: color, NSFontAttributeName: font} range:NSMakeRange(0, t1.length)];
+            res;
+        });
         model.avatar = @"https://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&hd=undefined&latest=undefined&copyright=undefined&cs=3922290090,3177876335&os=814333916,154083731&simid=39490595,826993982&pn=8&rn=1&di=95040&ln=1566&fr=&fmq=1601371306192_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fa3.att.hudong.com%2F55%2F22%2F20300000929429130630222900050.jpg&rpstart=0&rpnum=0&adpicid=0&force=undefined";
-        model.font = font;
         
         [data addObject:model];
     }
     
-    self.data = data;
+    return data;
+}
+
+- (TPPBarrageHeaderModel *)loadHeaderData {
+    TPPBarrageHeaderModel *model = [[TPPBarrageHeaderModel alloc] init];
+    model.avatars = @[@"1", @"2", @"3", @"4", @"5"];
+    model.onlineTotalCount = 10000;
+    model.onlineTotalAttText = ({
+        NSString *t1 = @(model.onlineTotalCount).stringValue;
+        NSString *t2 = @"人在热聊...";
+        NSMutableAttributedString *res = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", t1, t2]];
+        [res addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11 weight:(UIFontWeightMedium)], NSForegroundColorAttributeName: [TPPBarrageHelper colorWithHexString:@"#3A3945"]} range:NSMakeRange(0, res.string.length)];
+        res;
+    });
+    
+    return model;
 }
 
 - (IBAction)buttonAction:(id)sender {
-    [self.barrageView removeFromSuperview];
-    self.barrageView = nil;
+    [self.barrageContainerView removeFromSuperview];
+    self.barrageContainerView = nil;
 }
 
-- (TPPBarrageView *)barrageView {
-    if (!_barrageView) {
-        TPPBarrageView *view = [[TPPBarrageView alloc] initWithFont:self.barrageFont rows:3];
-        view.backgroundColor = UIColor.lightGrayColor;
+- (TPPBarrgeContainerView *)barrageContainerView {
+    if (!_barrageContainerView) {
+        TPPBarrgeContainerView *view = [[TPPBarrgeContainerView alloc] initWithRows:2];
         
-//        __weak typeof(self) weakself = self;
-        view.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
-            TPPBarrageViewLog(@"click item: %@", model.text);
+        view.barrageView.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
+            TPPBarrageLog(@"click item: %@", model.attText.string);
         };
         
-        [view registCell:CustomBarrgeCell.class];
-//        [view registCell:TPPBarrageCell.class];
-        
-        _barrageView = view;
+        _barrageContainerView = view;
     }
     
-    return _barrageView;
-}
-
-- (UIFont *)barrageFont {
-    return [UIFont systemFontOfSize:14];
+    return _barrageContainerView;
 }
 
 // 随机数 [from,to]

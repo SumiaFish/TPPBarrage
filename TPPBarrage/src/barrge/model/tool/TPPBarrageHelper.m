@@ -53,8 +53,19 @@
     return rect.size.width + 1;
 }
 
-+ (CGFloat)attText:(NSAttributedString *)attText widthWithFont:(UIFont *)font {
++ (CGFloat)attTextWidth:(NSAttributedString *)attText {
     if (!attText.string.length) {
+        return 0;
+    }
+    
+    __block UIFont *font = nil;
+    [attText enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, attText.string.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:UIFont.class]) {
+            font = value;
+            *stop = YES;
+        }
+    }];
+    if (!font) {
         return 0;
     }
     

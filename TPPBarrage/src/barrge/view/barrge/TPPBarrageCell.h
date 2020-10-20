@@ -14,9 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TPPBarrageContentViewProtocol <NSObject>
 
-- (void)setModel:(TPPBarrageModel * _Nullable)model font:(UIFont * _Nullable)font;
+- (void)setModel:(TPPBarrageModel * _Nullable)model;
 - (TPPBarrageModel * _Nullable)model;
-- (UIFont * _Nullable)font;
 
 + (CGFloat)widthWithTextWidth:(CGFloat)textWidth;
 

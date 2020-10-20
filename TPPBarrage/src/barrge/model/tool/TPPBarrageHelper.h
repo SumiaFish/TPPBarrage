@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)text:(NSString *)text widthWithFont:(UIFont *)font;
 
-+ (CGFloat)attText:(NSAttributedString *)attText;
++ (CGFloat)attTextWidth:(NSAttributedString *)attText;
 
 @end
 

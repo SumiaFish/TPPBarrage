@@ -11,6 +11,8 @@ target 'TPPBarrage' do
   
   pod 'Masonry'
   
+  pod 'SDWebImage', '~> 4.2.3'
+  
   target 'TPPBarrageTests' do
     inherit! :search_paths
     # Pods for testing

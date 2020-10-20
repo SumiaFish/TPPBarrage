@@ -8,9 +8,6 @@
 
 #import <objc/runtime.h>
 
-#import <ZLCollectionViewFlowLayout/ZLCollectionViewFlowLayout-umbrella.h>
-#import <Masonry/Masonry.h>
-
 #import "TPPBarrageView.h"
 
 typedef NS_ENUM(NSInteger, TPPBarrageViewType) {
@@ -21,7 +18,6 @@ typedef NS_ENUM(NSInteger, TPPBarrageViewType) {
 /** base */
 @interface TPPBarrageView ()
 
-@property (strong, nonatomic) UIFont *font;
 @property (assign, nonatomic) NSInteger rows;
 @property (assign, nonatomic) TPPBarrageViewType type;
 
@@ -45,13 +41,13 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 /** base */
 @implementation TPPBarrageView
 
-- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows {
-    return [[self.class alloc] initWithFont:font rows:rows type:(TPPBarrageViewType_CollectionView)];
+- (instancetype)initWithRows:(NSInteger)rows {
+    return [[self.class alloc] initWithRows:rows type:(TPPBarrageViewType_CollectionView)];
 }
 
-- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows type:(TPPBarrageViewType)type {
+- (instancetype)initWithRows:(NSInteger)rows type:(TPPBarrageViewType)type {
     if (type == TPPBarrageViewType_CollectionView) {
-        return [[TPPBarrageCollectionView alloc] initWithFont:font rows:rows type:type];
+        return [[TPPBarrageCollectionView alloc] initWithRows:rows type:type];
     }
     else if (type == TPPBarrageViewType_TagView) {
         
@@ -71,7 +67,7 @@ ZLCollectionViewBaseFlowLayoutDelegate>
 #pragma mark - Abstrcut Methond
 
 - (void)setData:(NSArray<TPPBarrageModel *> *)data {
-    _data = data;
+    _data = data.copy;
 }
 
 - (void)setSpeed:(CGFloat)speed {
@@ -173,13 +169,12 @@ static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
 @implementation TPPBarrageCollectionView
 
 - (void)dealloc {
-    TPPBarrageViewLog(@"%@ dealloc~", NSStringFromClass(self.class));
+    TPPBarrageLog(@"%@ dealloc~", NSStringFromClass(self.class));
 }
 
-- (instancetype)initWithFont:(UIFont *)font rows:(NSInteger)rows type:(TPPBarrageViewType)type {
+- (instancetype)initWithRows:(NSInteger)rows type:(TPPBarrageViewType)type {
     if (self = [super initWithFrame:CGRectZero]) {
         self.type = type;
-        self.font = font;
         self.rows = rows < 1 ? 1 : rows;
         
         //
@@ -262,18 +257,19 @@ static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.isSeamless ? MIN(1000, self.data.count*self.data.count) : self.data.count;
+//    return self.isSeamless ? MIN(1000, self.data.count*self.data.count) : self.data.count;
+    return self.data.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell<TPPBarrageContentViewProtocol> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellCls ? NSStringFromClass(self.cellCls) : @"cell" forIndexPath:indexPath];
-    [cell setModel:[self itemWithIndexPath:indexPath] font:self.font];
+    cell.model = [self itemWithIndexPath:indexPath];
     
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat w = [TPPBarrageCell widthWithTextWidth:[self itemWithIndexPath:indexPath].textWidth] + self.hSpace;
+    CGFloat w = [TPPBarrageCell widthWithTextWidth:[self itemWithIndexPath:indexPath].attText.tppBarrage_TextWidth] + self.hSpace;
     CGFloat h = collectionView.bounds.size.height / self.rows;
     
     return CGSizeMake(w, h);
