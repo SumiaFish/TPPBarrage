@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "TPPBarrgeHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,12 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nonatomic, readonly) NSString *id;
 @property (copy, nonatomic, nullable) NSString *userId;
-@property (copy, nonatomic) NSString *text;
+@property (strong, nonatomic) NSAttributedString *attText;
 @property (copy, nonatomic) NSString *avatar;
-
-
-@property (strong, nonatomic) UIFont *font;
-- (CGFloat)textWidth;
 
 @end
 

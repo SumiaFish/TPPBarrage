@@ -49,4 +49,8 @@
     return self.text;
 }
 
+- (NSString *)text {
+    return self.attText.string;
+}
+
 @end
