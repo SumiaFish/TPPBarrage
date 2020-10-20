@@ -313,7 +313,7 @@ static void* TPPBarrageView_CellCls_Key = "TPPBarrageView_CellCls_Key";
     CGPoint point = [sender locationInView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
     if (indexPath) {
-        self.onClickItemBlock(self, [self itemWithIndexPath:indexPath]);
+        self.onClickItemBlock(self, [self itemWithIndexPath:indexPath], indexPath.item);
     }
 }
 

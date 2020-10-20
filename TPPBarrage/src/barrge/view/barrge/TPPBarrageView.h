@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 是否能拖动， default: NO */
 @property (assign, nonatomic) BOOL canDrag;
 /** 弹幕点击事件， on click item */
-@property (copy, nonatomic) void (^ onClickItemBlock) (TPPBarrageView *view, TPPBarrageModel *model);
+@property (copy, nonatomic) void (^ onClickItemBlock) (TPPBarrageView *view, TPPBarrageModel *model, NSInteger idx);
 
 /** font: 弹幕字体大小,
  rows: 最大行数 */

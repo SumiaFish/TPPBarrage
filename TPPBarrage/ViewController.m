@@ -92,7 +92,7 @@
     if (!_barrageContainerView) {
         TPPBarrgeContainerView *view = [[TPPBarrgeContainerView alloc] initWithRows:2];
         
-        view.barrageView.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model) {
+        view.barrageView.onClickItemBlock = ^(TPPBarrageView * _Nonnull view, TPPBarrageModel * _Nonnull model, NSInteger idx) {
             TPPBarrageLog(@"click item: %@", model.attText.string);
         };
         
